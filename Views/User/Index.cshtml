@@ -1,0 +1,57 @@
+﻿@model List<UserDTO>
+@{
+    ViewData["Title"] = "Users Page";
+    List<UserDTO> users = Model;
+}
+@using ComputerRepair.DTO;
+@using ComputerRepair.Models;
+<div class="text-center">
+    <h1 class="display-4">Welcome User Page</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>FullName</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>
+                    <a class="btn btn-primary" asp-action="Add" asp-controller="User">Add</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.UserID</td>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Address</td>
+                    <td>@user.RoleName</td>
+                    <td>@user.Username</td>
+                    <td data-password="@user.Password" ondblclick="togglePassword(this)">*******</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="User" asp-route-id="@user.UserID">Update</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@user.UserID" onclick="return confirm('Bạn có chắc muốn xóa tài khoản của user @user.Username không?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function togglePassword(element) {
+        var password = element.getAttribute('data-password');
+        if (element.innerHTML === '*******') {
+            element.innerHTML = password;
+        } else {
+            element.innerHTML = '*******';
+        }
+    }
+</script>
+

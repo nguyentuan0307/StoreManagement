@@ -1,0 +1,31 @@
+﻿Add-Migration: tạo migration mới dựa trên sự thay đổi trong cấu trúc cơ sở dữ liệu.
+
+Update-Database: cập nhật cơ sở dữ liệu từ các migration đã được tạo ra.
+
+Remove-Migration: xóa migration cuối cùng.
+
+Get-Help: hiển thị danh sách các lệnh và trợ giúp chi tiết.
+
+Scaffold-DbContext: tạo các class Entity từ cơ sở dữ liệu hiện có.
+
+Add-Migration
+<migrationname>
+    -Context
+    <dbcontextname>
+        : tạo migration mới cho một DbContext cụ thể.
+
+Update-Database -Context
+        <dbcontextname>
+            : cập nhật cơ sở dữ liệu cho một DbContext cụ thể.
+
+Remove-Migration -Context
+            <dbcontextname>
+: xóa migration cuối cùng cho một DbContext cụ thể.
+
+Script-Migration: tạo một script SQL từ các migration đã được tạo.
+
+Drop-Database: xóa toàn bộ cơ sở dữ liệu.
+
+Seed-Database: thêm dữ liệu vào cơ sở dữ liệu.
+
+Enable-Migrations: kích hoạt tính năng Migration cho dự án.

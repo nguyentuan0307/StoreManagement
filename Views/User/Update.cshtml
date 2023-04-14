@@ -1,0 +1,78 @@
+﻿@model List<Role>
+@{
+    ViewData["Title"] = "Add User Page";
+    List<Role> roles = Model;
+    User user = ViewBag.user;
+}
+@using ComputerRepair.Models;
+
+<form action="/User/Update" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Update User Page</h1>
+    </div>
+    <div class="mb-3">
+        <label for="UserID" class="form-label">Id</label>
+        <input type="text" class="form-control" id="UserID" name="UserId" value="@user.UserID" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="FullName" class="form-label">FullName</label>
+        <input type="text" class="form-control" id="FullName" name="FullName" value="@user.FullName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="Email" name="Email" value="@user.Email" required />
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Phone</label>
+        <input type="text" class="form-control" id="Phone" name="Phone" value="@user.Phone" required />
+        <label id="labelPhone"></label>
+    </div>
+    <div class="mb-3">
+        <label for="Address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="Address" name="Address" value="@user.Address" required />
+    </div>
+    <div class="mb-3">
+        <label for="RoleID" class="form-label">Role</label>
+        <select class="form-select" id="RoleID" name="RoleID">
+            @foreach (var role in roles)
+            {
+                if (role.RoleID == user.RoleID)
+                {
+                    <option value="@role.RoleID" selected>@role.RoleName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="Username" name="Username" value="@user.Username" readonly />
+        <label id="alert-box"></label>
+    </div>
+    <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input type="text" class="form-control" id="Password" name="Password" value="@user.Password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    function validatePhone(event) {
+        const phoneInput = event.target;
+        const phone = phoneInput.value;
+
+        if (isNaN(phone)) {
+            phoneInput.value = phone.slice(0, -1);
+            return;
+        }
+
+        if (phone.startsWith("00") || !phone.startsWith("0")) {
+            document.getElementById("labelPhone").innerText = "Invalid phone format";
+        } else {
+            document.getElementById("labelPhone").innerText = "";
+        }
+    }
+
+    const phoneInput = document.getElementById("Phone");
+    phoneInput.addEventListener("input", validatePhone);
+    phoneInput.addEventListener("blur", validatePhone);
+</script>
