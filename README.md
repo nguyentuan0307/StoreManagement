@@ -14,4 +14,4 @@
 <img width="172" alt="image" src="https://user-images.githubusercontent.com/87991717/232224606-50a93da2-0367-4a84-9380-6e2696fbd2b8.png">
 ### Nếu kết quả trả về Done. Là đã thành công
 <img width="374" alt="image" src="https://user-images.githubusercontent.com/87991717/232224708-ddc17eae-2afb-49af-a12e-e5b87eaffbb1.png">
-## Lúc này database đã được cập nhật trên máy tính, thế là xong, Chạy code và test thôi.Sử dụng  Username : admin1, password : admin1
+## Lúc này database đã được cập nhật trên máy tính, thế là xong, Chạy code và test thôi.Sử dụng  Username : admin1, password : admin1 để login
