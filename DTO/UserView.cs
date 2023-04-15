@@ -2,7 +2,7 @@
 
 namespace ComputerRepair.DTO
 {
-    public class UserDTO
+    public class UserView
     {
         public int UserID { get; set; }
         public string? Username { get; set; }

@@ -4,9 +4,11 @@ using ComputerRepair.Services.IServices;
 using ComputerRepair.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComputerRepair.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -20,10 +22,10 @@ namespace ComputerRepair.Controllers
         {
             var users = _userService.GetUsers();
             var roles = _roleService.GetRoles();
-            var usersDTO = new List<UserDTO>();
+            var usersDTO = new List<UserView>();
             foreach (var user in users)
             {
-                usersDTO.Add(new UserDTO
+                usersDTO.Add(new UserView
                 {
                     UserID = user.UserID,
                     Username = user.Username,
