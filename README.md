@@ -1,5 +1,5 @@
 # Cách update Database lên SQL SERVER trên Local
-## Bước 1 : Điều chỉnh lại đường dẫn
+# Bước 1 : Điều chỉnh lại đường dẫn
 ### Vào appsettings.json, sửa đoạn lệnh trong ConnectionStrings thành trên máy mình, nên viết 1 tên Database chưa có trong máy tính, nếu có rồi hãy xóa trước khi chạy lệnh Update phía dưới
 <img width="663" alt="image" src="https://user-images.githubusercontent.com/87991717/232224364-32002c69-0efa-4e71-927c-358ad598e660.png">
 # Bước 2 : Xóa thư mục Migrations
