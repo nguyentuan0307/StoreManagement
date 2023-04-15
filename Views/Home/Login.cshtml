@@ -3,14 +3,14 @@
 
 <form method="post" asp-controller="Home" asp-action="Login">
     <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">Tên đăng nhập:</label>
         <input type="text" class="form-control" id="username" name="username" required>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Mật khẩu:</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Đăng nhập</button>
     @if (TempData["ErrorMessage"] != null)
     {
         <label class="text-danger">@TempData["ErrorMessage"].ToString()</label>

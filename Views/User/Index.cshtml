@@ -1,25 +1,25 @@
 ﻿@model List<UserView>
 @{
-    ViewData["Title"] = "Users Page";
+    ViewData["Title"] = "Quản lý người dùng";
     List<UserView> users = Model;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
 <div class="text-center">
-    <h1 class="display-4">Welcome User Page</h1>
+    <h1 class="display-4">Quản lý người dùng</h1>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>User Id</th>
-                <th>FullName</th>
+                <th>ID</th>
+                <th>Họ Và Tên</th>
                 <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Role</th>
-                <th>Username</th>
-                <th>Password</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Quyền</th>
+                <th>Tên đăng nhập</th>
+                <th>Mật khẩu</th>
                 <th>
-                    <a class="btn btn-primary" asp-action="Add" asp-controller="User">Add</a>
+                    <a class="btn btn-primary" asp-action="Add" asp-controller="User">Thêm mới</a>
                 </th>
             </tr>
         </thead>
@@ -36,8 +36,8 @@
                     <td>@user.Username</td>
                     <td data-password="@user.Password" ondblclick="togglePassword(this)">*******</td>
                     <td>
-                        <a class="btn btn-success" asp-action="Update" asp-controller="User" asp-route-id="@user.UserID">Update</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@user.UserID" onclick="return confirm('Bạn có chắc muốn xóa tài khoản của user @user.Username không?')">Delete</a>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="User" asp-route-id="@user.UserID">Cập nhật</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@user.UserID" onclick="return confirm('Bạn có chắc muốn xóa tài khoản của user @user.Username không?')">Xóa</a>
                     </td>
                 </tr>
             }

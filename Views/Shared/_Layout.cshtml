@@ -21,13 +21,13 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Người dùng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Device" asp-action="Index">Devices</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Device" asp-action="Index">Thiết bị</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Services</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Dịch vụ</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
@@ -38,14 +38,14 @@
                                         @User.Identity.Name
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Đăng xuất</a></li>
                                     </ul>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Login</a>
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Login">Đăng nhập</a>
                                 </li>
                             }
                         </ul>

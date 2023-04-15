@@ -1,16 +1,16 @@
 ﻿@model List<Role>
 @{
-    ViewData["Title"] = "Add User Page";
+    ViewData["Title"] = "Thêm mới người dùng";
     List<Role> roles = Model;
 }
 @using ComputerRepair.Models;
 
 <form action="/User/Add" method="post" name="form1">
     <div class="text-center">
-        <h1 class="display-4">Add User Page</h1>
+        <h1 class="display-4">Thêm mới người dùng</h1>
     </div>
     <div class="mb-3">
-        <label for="FullName" class="form-label">FullName</label>
+        <label for="FullName" class="form-label">Họ và tên</label>
         <input type="text" class="form-control" id="FullName" name="FullName" required />
     </div>
     <div class="mb-3">
@@ -18,16 +18,16 @@
         <input type="text" class="form-control" id="Email" name="Email" required />
     </div>
     <div class="mb-3">
-        <label for="Phone" class="form-label">Phone</label>
+        <label for="Phone" class="form-label">Số điện thoại</label>
         <input type="text" class="form-control" id="Phone" name="Phone" required />
         <label id="labelPhone"></label>
     </div>
     <div class="mb-3">
-        <label for="Address" class="form-label">Address</label>
+        <label for="Address" class="form-label">Địa chỉ</label>
         <input type="text" class="form-control" id="Address" name="Address" required />
     </div>
     <div class="mb-3">
-        <label for="RoleID" class="form-label">Role</label>
+        <label for="RoleID" class="form-label">Quyền</label>
         <select class="form-select" id="RoleID" name="RoleID">
             @foreach (var role in roles)
             {
@@ -36,15 +36,15 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">Username</label>
+        <label for="Username" class="form-label">Tên đăng nhập</label>
         <input type="text" class="form-control" id="Username" name="Username" required />
         <label id="alert-box"></label>
     </div>
     <div class="mb-3">
-        <label for="Password" class="form-label">Password</label>
+        <label for="Password" class="form-label">Mật khẩu</label>
         <input type="text" class="form-control" id="Password" name="Password" required />
     </div>
-    <button type="submit" class="btn btn-primary" id="addUserBtn">Submit</button>
+    <button type="submit" class="btn btn-primary" id="addUserBtn">Thêm</button>
 </form>
 
 <script>
@@ -65,7 +65,7 @@
                 let alertBox = document.getElementById("alert-box");
                 alertBox.innerHTML = data;
                 alertBox.classList.remove("d-none");
-                if (data == "Username is already taken."){
+                if (data == "Đã tồn tại tên tài khoản") {
                     document.getElementById('addUserBtn').disabled = false;
                     inputUsername.focus();
                 }else{

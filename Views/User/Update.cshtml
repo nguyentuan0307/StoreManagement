@@ -1,6 +1,6 @@
 ﻿@model List<Role>
 @{
-    ViewData["Title"] = "Add User Page";
+    ViewData["Title"] = "Chỉnh sửa người dùng";
     List<Role> roles = Model;
     User user = ViewBag.user;
 }
@@ -8,14 +8,14 @@
 
 <form action="/User/Update" method="post">
     <div class="text-center">
-        <h1 class="display-4">Update User Page</h1>
+        <h1 class="display-4">Chỉnh sửa người dùng</h1>
     </div>
     <div class="mb-3">
         <label for="UserID" class="form-label">Id</label>
         <input type="text" class="form-control" id="UserID" name="UserId" value="@user.UserID" readonly />
     </div>
     <div class="mb-3">
-        <label for="FullName" class="form-label">FullName</label>
+        <label for="FullName" class="form-label">Họ và tên</label>
         <input type="text" class="form-control" id="FullName" name="FullName" value="@user.FullName" required />
     </div>
     <div class="mb-3">
@@ -23,16 +23,16 @@
         <input type="text" class="form-control" id="Email" name="Email" value="@user.Email" required />
     </div>
     <div class="mb-3">
-        <label for="Phone" class="form-label">Phone</label>
+        <label for="Phone" class="form-label">Số điện thoại</label>
         <input type="text" class="form-control" id="Phone" name="Phone" value="@user.Phone" required />
         <label id="labelPhone"></label>
     </div>
     <div class="mb-3">
-        <label for="Address" class="form-label">Address</label>
+        <label for="Address" class="form-label">Địa chỉ</label>
         <input type="text" class="form-control" id="Address" name="Address" value="@user.Address" required />
     </div>
     <div class="mb-3">
-        <label for="RoleID" class="form-label">Role</label>
+        <label for="RoleID" class="form-label">Quyền</label>
         <select class="form-select" id="RoleID" name="RoleID">
             @foreach (var role in roles)
             {
@@ -44,15 +44,15 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="Username" class="form-label">Username</label>
+        <label for="Username" class="form-label">Tên đăng nhập</label>
         <input type="text" class="form-control" id="Username" name="Username" value="@user.Username" readonly />
         <label id="alert-box"></label>
     </div>
     <div class="mb-3">
-        <label for="Password" class="form-label">Password</label>
+        <label for="Password" class="form-label">Mật khẩu</label>
         <input type="text" class="form-control" id="Password" name="Password" value="@user.Password" required />
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Lưu</button>
 </form>
 
 <script>

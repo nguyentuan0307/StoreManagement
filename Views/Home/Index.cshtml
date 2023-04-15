@@ -2,17 +2,17 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>Welcome to our private website!</h1>
-<p>This is a private website. Please log in to access the content.</p>
+<h1>Xin chào!</h1>
 @if (User.Identity.IsAuthenticated)
 {
     <div>
-        <p>Hello, @User.Identity.Name!</p>
+        @*Thêm các sự kiện tạo ở đây*@
     </div>
 }
 else
 {
     <div>
-        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Login">Log in</a>
+        <p>Đây là một trang web tư nhân. Vui lòng đăng nhập để truy cập nội dung.</p>
+        <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Login">Đăng nhập</a>
     </div>
 }

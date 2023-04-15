@@ -61,11 +61,11 @@ namespace ComputerRepair.Controllers
 
             if (!hasUser)
             {
-                return Content("Username is already taken.");
+                return Content("Tên tài khoản có thể được sử dụng");
             }
             else
             {
-                return Content("Username is available.");
+                return Content("Đã tồn tại tên tài khoản");
             }
         }
         [HttpGet]

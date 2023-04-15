@@ -1,22 +1,22 @@
 ﻿@model List<DeviceView>
 @{
-    ViewData["Title"] = "Devices Page";
+    ViewData["Title"] = "Quản lý thiết bị";
     List<DeviceView> devices = Model;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
 <div class="text-center">
-    <h1 class="display-4">Welcome Device Page</h1>
+    <h1 class="display-4">Quản lý thiết bị</h1>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>DeviceId</th>
-                <th>DeviceName</th>
-                <th>Description</th>
-                <th>Manufacturer</th>
-                <th>Quantity</th>
+                <th>Id</th>
+                <th>Tên thiết bị</th>
+                <th>Mô tả</th>
+                <th>Nhà cung cấp</th>
+                <th>Số lượng</th>
                 <th>
-                    <a class="btn btn-primary" asp-action="Add" asp-controller="Device">Add</a>
+                    <a class="btn btn-primary" asp-action="Add" asp-controller="Device">Thêm mới</a>
                 </th>
             </tr>
         </thead>
@@ -30,8 +30,8 @@
                     <td>@device.Manufacturer</td>
                     <td>@device.Quantity</td>
                     <td>
-                        <a class="btn btn-success" asp-action="Update" asp-controller="Device" asp-route-id="@device.DeviceID">Update</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Device" asp-route-id="@device.DeviceID" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm @device.DeviceName không?')">Delete</a>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Device" asp-route-id="@device.DeviceID">Cập nhật</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Device" asp-route-id="@device.DeviceID" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm @device.DeviceName không?')">Xóa</a>
                     </td>
                 </tr>
             }

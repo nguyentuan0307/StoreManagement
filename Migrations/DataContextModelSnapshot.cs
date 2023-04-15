@@ -241,42 +241,42 @@ namespace ComputerRepair.Migrations
                         {
                             InvoiceID = 1,
                             CustomerID = 1,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9179),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4117),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 2,
                             CustomerID = 2,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9194),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4128),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 3,
                             CustomerID = 3,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9195),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4130),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 4,
                             CustomerID = 4,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9196),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4131),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 5,
                             CustomerID = 5,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9197),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4132),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 6,
                             CustomerID = 6,
-                            InvoiceDate = new DateTime(2023, 4, 14, 1, 21, 53, 241, DateTimeKind.Local).AddTicks(9199),
+                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4134),
                             TotalPrice = 0m
                         });
                 });
