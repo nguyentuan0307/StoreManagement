@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Add Device Page";
+}
+@using ComputerRepair.Models;
+
+<form action="/Service/Add" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Add Device Page</h1>
+    </div>
+    <div class="mb-3">
+        <label for="ServiceName" class="form-label">ServiceName</label>
+        <input type="text" class="form-control" id="ServiceName" name="ServiceName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="Description" name="Description" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

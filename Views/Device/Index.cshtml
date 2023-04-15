@@ -1,0 +1,41 @@
+﻿@model List<DeviceView>
+@{
+    ViewData["Title"] = "Devices Page";
+    List<DeviceView> devices = Model;
+}
+@using ComputerRepair.DTO;
+@using ComputerRepair.Models;
+<div class="text-center">
+    <h1 class="display-4">Welcome Device Page</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>DeviceId</th>
+                <th>DeviceName</th>
+                <th>Description</th>
+                <th>Manufacturer</th>
+                <th>Quantity</th>
+                <th>
+                    <a class="btn btn-primary" asp-action="Add" asp-controller="Device">Add</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in devices)
+            {
+                <tr>
+                    <td>@device.DeviceID</td>
+                    <td>@device.DeviceName</td>
+                    <td>@device.Description</td>
+                    <td>@device.Manufacturer</td>
+                    <td>@device.Quantity</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Device" asp-route-id="@device.DeviceID">Update</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Device" asp-route-id="@device.DeviceID" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm @device.DeviceName không?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

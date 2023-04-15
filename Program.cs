@@ -15,6 +15,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IDeviceService, ComputerRepair.Services.DeviceService>();
+builder.Services.AddTransient<IServiceService, ServiceService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

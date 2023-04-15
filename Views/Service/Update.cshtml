@@ -1,0 +1,25 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Add Service Page";
+    Service service = Model;
+}
+@using ComputerRepair.Models;
+
+<form action="/Service/Update" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Update Service Page</h1>
+    </div>    
+    <div class="mb-3">
+        <label for="ServiceID" class="form-label">Id</label>
+        <input type="text" class="form-control" id="ServiceID" name="ServiceID" value="@service.ServiceID" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="ServiceName" class="form-label">ServiceName</label>
+        <input type="text" class="form-control" id="ServiceName" name="ServiceName" value="@service.ServiceName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="Description" name="Description" value="@service.Description" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

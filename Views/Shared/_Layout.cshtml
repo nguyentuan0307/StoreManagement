@@ -23,6 +23,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Device" asp-action="Index">Devices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Index">Services</a>
+                            </li>
                         </ul>
                         <ul class="navbar-nav">
                             @if (User.Identity.IsAuthenticated)

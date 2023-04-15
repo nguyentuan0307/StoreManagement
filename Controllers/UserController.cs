@@ -22,10 +22,10 @@ namespace ComputerRepair.Controllers
         {
             var users = _userService.GetUsers();
             var roles = _roleService.GetRoles();
-            var usersDTO = new List<UserView>();
+            var usersView = new List<UserView>();
             foreach (var user in users)
             {
-                usersDTO.Add(new UserView
+                usersView.Add(new UserView
                 {
                     UserID = user.UserID,
                     Username = user.Username,
@@ -37,7 +37,7 @@ namespace ComputerRepair.Controllers
                     RoleName = user.Role?.RoleName,
                 });
             }
-            return View(usersDTO);
+            return View(usersView);
         }
         [HttpGet]
         public IActionResult Add()

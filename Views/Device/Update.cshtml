@@ -1,0 +1,33 @@
+﻿@model Device
+@{
+    ViewData["Title"] = "Add Device Page";
+    Device device = Model;
+}
+@using ComputerRepair.Models;
+
+<form action="/Device/Update" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Update Device Page</h1>
+    </div>    
+    <div class="mb-3">
+        <label for="DeviceID" class="form-label">Id</label>
+        <input type="text" class="form-control" id="DeviceID" name="DeviceID" value="@device.DeviceID" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="DeviceName" class="form-label">DeviceName</label>
+        <input type="text" class="form-control" id="DeviceName" name="DeviceName" value="@device.DeviceName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="Description" name="Description" value="@device.Description" required />
+    </div>
+    <div class="mb-3">
+        <label for="Manufacturer" class="form-label">Manufacturer</label>
+        <input type="text" class="form-control" id="Manufacturer" name="Manufacturer" value="@device.Manufacturer" required />
+    </div>
+    <div class="mb-3">
+        <label for="Quantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" id="Quantity" name="Quantity" min="0" step="1" value="@device.Quantity" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
