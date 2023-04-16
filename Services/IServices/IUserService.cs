@@ -11,6 +11,6 @@ namespace ComputerRepair.Services.IServices
         bool SaveUser(User user);
         bool DeleteUser(int id);
         bool CheckHasUser(string username);
-        bool CheckAccount(string username, string password);
+        int GetRoleAccount(string username, string password);
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ComputerRepair.Services.IServices;
+using ComputerRepair.Models;
 
 namespace ComputerRepair.Controllers
 {
@@ -27,13 +28,14 @@ namespace ComputerRepair.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isValid = _userService.CheckAccount(model.Username, model.Password);
-                if (isValid)
+                var role = _userService.GetRoleAccount(model.Username, model.Password);
+                if (role != 0)
                 {
                     // Đăng nhập thành công
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, model.Username)
+                        new Claim(ClaimTypes.Name, model.Username),
+                        new Claim(ClaimTypes.Role, role == 1 ? "admin" : "employee") // thêm quyền vào claim
                     };
 
                     var claimsIdentity = new ClaimsIdentity(
@@ -64,6 +66,9 @@ namespace ComputerRepair.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "User");
         }
-
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

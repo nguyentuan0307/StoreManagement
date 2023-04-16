@@ -15,9 +15,12 @@
                 <th>Mô tả</th>
                 <th>Nhà cung cấp</th>
                 <th>Số lượng</th>
-                <th>
-                    <a class="btn btn-primary" asp-action="Add" asp-controller="Device">Thêm mới</a>
-                </th>
+                @if (User.IsInRole("admin"))
+                {
+                    <th>
+                        <a class="btn btn-primary" asp-action="Add" asp-controller="Device">Thêm mới</a>
+                    </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -29,10 +32,13 @@
                     <td>@device.Description</td>
                     <td>@device.Manufacturer</td>
                     <td>@device.Quantity</td>
-                    <td>
-                        <a class="btn btn-success" asp-action="Update" asp-controller="Device" asp-route-id="@device.DeviceID">Cập nhật</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Device" asp-route-id="@device.DeviceID" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm @device.DeviceName không?')">Xóa</a>
-                    </td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            <a class="btn btn-success" asp-action="Update" asp-controller="Device" asp-route-id="@device.DeviceID">Cập nhật</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Device" asp-route-id="@device.DeviceID" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm @device.DeviceName không?')">Xóa</a>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

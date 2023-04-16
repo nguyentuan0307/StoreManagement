@@ -30,11 +30,13 @@ namespace ComputerRepair.Controllers
             }
             return View(servicesView);
         }
+        [Authorize(Roles = "admin")]
         public IActionResult Add()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Add(Service service)
         {
             if (!_serviceService.AddNewSevice(service))
@@ -44,12 +46,14 @@ namespace ComputerRepair.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(int id)
         {
             var service = _serviceService.GetService(id);
             return View(service);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(Service service)
         {
             if (!_serviceService.SaveSevice(service))
@@ -59,6 +63,7 @@ namespace ComputerRepair.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             if (!_serviceService.DeleteSevice(id))

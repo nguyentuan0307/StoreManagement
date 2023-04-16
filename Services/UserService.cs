@@ -71,9 +71,14 @@ namespace ComputerRepair.Services
         {
             return _dataContext.Users.Any(u => u.Username == username);
         }
-        public bool CheckAccount(string username, string password)
+        public int GetRoleAccount(string username, string password)
         {
-            return _dataContext.Users.Any(u => u.Username == username && u.Password == password);
+            User user = _dataContext.Users.Where(u => u.Username == username && u.Password == password).FirstOrDefault();
+            if (user == null)
+            {
+                return 0;
+            }
+            return user.RoleID;
         }
     }
 }

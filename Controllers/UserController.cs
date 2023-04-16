@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ComputerRepair.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

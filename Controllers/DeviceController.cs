@@ -31,11 +31,13 @@ namespace ComputerRepair.Controllers
             }
             return View(devicesView);
         }
+        [Authorize(Roles = "admin")]
         public IActionResult Add()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Add(Device device)
         {
             if (!_deviceService.AddNewDevice(device))
@@ -45,12 +47,14 @@ namespace ComputerRepair.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(int id)
         {
             var device = _deviceService.GetDevice(id);
             return View(device);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Update(Device device)
         {
             if (!_deviceService.SaveDevice(device))
@@ -60,6 +64,7 @@ namespace ComputerRepair.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             if (!_deviceService.DeleteDevice(id))

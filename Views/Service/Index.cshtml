@@ -13,9 +13,12 @@
                 <th>Id</th>
                 <th>Tên dịch vụ</th>
                 <th>Mô tả</th>
-                <th>
-                    <a class="btn btn-primary" asp-action="Add" asp-controller="Service">Thêm mới</a>
-                </th>
+                @if (User.IsInRole("admin"))
+                {
+                    <th>
+                        <a class="btn btn-primary" asp-action="Add" asp-controller="Service">Thêm mới</a>
+                    </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -25,10 +28,13 @@
                     <td>@sevice.ServiceID</td>
                     <td>@sevice.ServiceName</td>
                     <td>@sevice.Description</td>
-                    <td>
-                        <a class="btn btn-success" asp-action="Update" asp-controller="Service" asp-route-id="@sevice.ServiceID">Cập nhật</a>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            <a class="btn btn-success" asp-action="Update" asp-controller="Service" asp-route-id="@sevice.ServiceID">Cập nhật</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-controller="Service" asp-route-id="@sevice.ServiceID" onclick="return confirm('Bạn có chắc muốn xóa dịch vụ  @sevice.ServiceName không?')">Xóa</a>
                     </td>
+                    }
                 </tr>
             }
         </tbody>
