@@ -70,5 +70,18 @@ namespace ComputerRepair.Controllers
         {
             return View();
         }
+        public IActionResult Error(int? statusCode = null)
+        {
+            if (statusCode.HasValue)
+            {
+                if (statusCode.Value == 404)
+                {
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+                // Các xử lý lỗi khác ở đây
+            }
+            return View();
+        }
+
     }
 }
