@@ -53,6 +53,9 @@
         <input type="text" class="form-control" id="total-price" value="@invoice.InvoiceDate" readonly>
     </div>
     <div class="mb-3">
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Home")'">Trang chủ</button>
+        <a asp-action="Index" asp-controller="Home">Trang chủ</a>
+    </div>
+    <div class="mb-3">
+    <a asp-action="Index" asp-controller="Invoice">Danh sách hóa đơn</a>
     </div>
 </div>
