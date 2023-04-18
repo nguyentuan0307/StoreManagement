@@ -4,6 +4,7 @@ using ComputerRepair.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComputerRepair.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230417031408_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,6 +189,50 @@ namespace ComputerRepair.Migrations
                     b.HasIndex("CustomerID");
 
                     b.ToTable("Invoices");
+
+                    b.HasData(
+                        new
+                        {
+                            InvoiceID = 1,
+                            CustomerID = 1,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(617),
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            InvoiceID = 2,
+                            CustomerID = 2,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(627),
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            InvoiceID = 3,
+                            CustomerID = 3,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(628),
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            InvoiceID = 4,
+                            CustomerID = 4,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(629),
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            InvoiceID = 5,
+                            CustomerID = 5,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(630),
+                            TotalPrice = 0m
+                        },
+                        new
+                        {
+                            InvoiceID = 6,
+                            CustomerID = 6,
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 14, 8, 678, DateTimeKind.Local).AddTicks(632),
+                            TotalPrice = 0m
+                        });
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>

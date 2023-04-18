@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Thêm mới khách hàng";
+}
+
+<form action="/Customer/Add" method="post" >
+    <div class="text-center">
+        <h1 class="display-4">Thêm mới khách hàng</h1>
+    </div>
+    <div class="mb-3">
+        <label for="CustomerName" class="form-label">Tên khách hàng</label>
+        <input type="text" class="form-control" id="CustomerName" name="CustomerName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Số điện thoại</label>
+        <input type="text" class="form-control" id="Phone" name="Phone" required />
+        <label id="labelPhone"></label>
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="Email" name="Email" required />
+    </div>
+    <div class="mb-3">
+        <label for="Address" class="form-label">Địa chỉ</label>
+        <input type="text" class="form-control" id="Address" name="Address" required />
+    </div>
+    <button type="submit" class="btn btn-primary" id="addUserBtn">Thêm</button>
+</form>
+
+<script>
+        function validatePhone(event) {
+        const phoneInput = event.target;
+        const phone = phoneInput.value;
+
+        if (isNaN(phone)) {
+            phoneInput.value = phone.slice(0, -1);
+            return;
+        }
+
+        if (phone.startsWith("00") || !phone.startsWith("0")) {
+            document.getElementById("labelPhone").innerText = "Invalid phone format";
+        } else {
+            document.getElementById("labelPhone").innerText = "";
+        }
+    }
+
+    const phoneInput = document.getElementById("Phone");
+    phoneInput.addEventListener("input", validatePhone);
+    phoneInput.addEventListener("blur", validatePhone);
+
+</script>

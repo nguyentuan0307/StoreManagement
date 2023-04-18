@@ -1,0 +1,60 @@
+﻿@model CustomerView
+@{
+    List<Customer> customers = ViewBag.Customers;
+}
+@using ComputerRepair.DTO
+<form action="/Invoice/Create" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Giai đoạn 1: Chọn khách hàng</h1>
+    </div>
+    <div class="mb-3">
+        <label for="CustomerID" class="form-label">Tên khách hàng</label>
+        <select class="form-select" id="customer-select" name="CustomerID">
+            @foreach (var customer in customers)
+            {
+                <option value="@customer.CustomerID">@customer.CustomerName</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Số điện thoại</label>
+        <input type="text" class="form-control" id="phone" name="Phone" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="Email" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="Address" class="form-label">Địa chỉ</label>
+        <input type="text" class="form-control" id="address" name="Address" readonly />
+    </div>
+    <button type="submit" class="btn btn-primary" id="addUserBtn">Thêm dịch vụ</button>
+    <div>
+        <label class="form-label">Nếu chưa có khách hàng</label>
+        <a asp-action="Create" asp-controller="Customer">Tạo mới khách hàng</a>
+    </div>
+</form>
+
+<script>
+    var customers = @Html.Raw(Json.Serialize(ViewBag.Customers));
+    console.log(customers);
+    var select = document.getElementById("customer-select");
+    var email = document.getElementById("email");
+    var phone = document.getElementById("phone");
+    var address = document.getElementById("address");
+
+    select.addEventListener("click", function () {
+        var customerId = parseInt(select.value);
+        var customer = customers.find(function (c) { return c.customerID === customerId; });
+        console.log(customer);
+        if (customer) {
+            email.value = customer.email || "";
+            phone.value = customer.phone || "";
+            address.value = customer.address || "";
+        } else {
+            email.value = "";
+            phone.value = "";
+            address.value = "";
+        }
+    });
+</script>

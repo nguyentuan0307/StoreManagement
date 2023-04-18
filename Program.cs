@@ -17,6 +17,10 @@ builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IDeviceService, ComputerRepair.Services.DeviceService>();
 builder.Services.AddTransient<IServiceService, ServiceService>();
+builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IInvoiceService, invoiceService>();
+builder.Services.AddTransient<IRequestService, requestService>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -50,5 +54,4 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();

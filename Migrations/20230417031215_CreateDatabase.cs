@@ -73,27 +73,6 @@ namespace ComputerRepair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    InvoiceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
-                    table.ForeignKey(
-                        name: "FK_Invoices_Customers_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -119,29 +98,24 @@ namespace ComputerRepair.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DevicesServices",
+                name: "Invoices",
                 columns: table => new
                 {
-                    DeviceServiceID = table.Column<int>(type: "int", nullable: false)
+                    InvoiceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    ServiceID = table.Column<int>(type: "int", nullable: false),
-                    DeviceID = table.Column<int>(type: "int", nullable: false)
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RequestxID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DevicesServices", x => x.DeviceServiceID);
+                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
                     table.ForeignKey(
-                        name: "FK_DevicesServices_Devices_DeviceID",
-                        column: x => x.DeviceID,
-                        principalTable: "Devices",
-                        principalColumn: "DeviceID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DevicesServices_Services_ServiceID",
-                        column: x => x.ServiceID,
-                        principalTable: "Services",
-                        principalColumn: "ServiceID",
+                        name: "FK_Invoices_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -149,26 +123,34 @@ namespace ComputerRepair.Migrations
                 name: "Requests",
                 columns: table => new
                 {
-                    RequestID = table.Column<int>(type: "int", nullable: false)
+                    RequestxID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DeviceServiceID = table.Column<int>(type: "int", nullable: false),
-                    InvoiceID = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    ServiceID = table.Column<int>(type: "int", nullable: false),
+                    DeviceID = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    InvoiceID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Requests", x => x.RequestID);
+                    table.PrimaryKey("PK_Requests", x => x.RequestxID);
                     table.ForeignKey(
-                        name: "FK_Requests_DevicesServices_DeviceServiceID",
-                        column: x => x.DeviceServiceID,
-                        principalTable: "DevicesServices",
-                        principalColumn: "DeviceServiceID",
+                        name: "FK_Requests_Devices_DeviceID",
+                        column: x => x.DeviceID,
+                        principalTable: "Devices",
+                        principalColumn: "DeviceID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Requests_Invoices_InvoiceID",
                         column: x => x.InvoiceID,
                         principalTable: "Invoices",
                         principalColumn: "InvoiceID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Requests_Services_ServiceID",
+                        column: x => x.ServiceID,
+                        principalTable: "Services",
+                        principalColumn: "ServiceID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -221,26 +203,16 @@ namespace ComputerRepair.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "DevicesServices",
-                columns: new[] { "DeviceServiceID", "DeviceID", "Price", "ServiceID" },
-                values: new object[,]
-                {
-                    { 1, 4, 1000, 1 },
-                    { 2, 5, 5, 2 },
-                    { 3, 3, 6, 3 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Invoices",
-                columns: new[] { "InvoiceID", "CustomerID", "InvoiceDate", "TotalPrice" },
+                columns: new[] { "InvoiceID", "CustomerID", "InvoiceDate", "RequestxID", "TotalPrice" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4117), 0m },
-                    { 2, 2, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4128), 0m },
-                    { 3, 3, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4130), 0m },
-                    { 4, 4, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4131), 0m },
-                    { 5, 5, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4132), 0m },
-                    { 6, 6, new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4134), 0m }
+                    { 1, 1, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1259), null, 0m },
+                    { 2, 2, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1268), null, 0m },
+                    { 3, 3, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1269), null, 0m },
+                    { 4, 4, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1270), null, 0m },
+                    { 5, 5, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1272), null, 0m },
+                    { 6, 6, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1273), null, 0m }
                 });
 
             migrationBuilder.InsertData(
@@ -254,40 +226,20 @@ namespace ComputerRepair.Migrations
                     { 4, "Thành phố Hồ Chí Minh", "employee2@gmail.com", "Lê Văn B", "employee2", "0284928394", 2, "employee2" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Requests",
-                columns: new[] { "RequestID", "DeviceServiceID", "InvoiceID", "Quantity" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, 1 },
-                    { 2, 2, 1, 1 },
-                    { 3, 3, 2, 1 },
-                    { 4, 1, 2, 1 },
-                    { 5, 2, 3, 1 },
-                    { 6, 3, 4, 1 },
-                    { 7, 1, 5, 1 },
-                    { 8, 2, 6, 1 }
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DevicesServices_DeviceID",
-                table: "DevicesServices",
-                column: "DeviceID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DevicesServices_ServiceID",
-                table: "DevicesServices",
-                column: "ServiceID");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_CustomerID",
                 table: "Invoices",
                 column: "CustomerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_DeviceServiceID",
+                name: "IX_Invoices_RequestxID",
+                table: "Invoices",
+                column: "RequestxID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Requests_DeviceID",
                 table: "Requests",
-                column: "DeviceServiceID");
+                column: "DeviceID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_InvoiceID",
@@ -295,37 +247,54 @@ namespace ComputerRepair.Migrations
                 column: "InvoiceID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Requests_ServiceID",
+                table: "Requests",
+                column: "ServiceID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Invoices_Requests_RequestxID",
+                table: "Invoices",
+                column: "RequestxID",
+                principalTable: "Requests",
+                principalColumn: "RequestxID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Requests");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Invoices_Customers_CustomerID",
+                table: "Invoices");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Invoices_Requests_RequestxID",
+                table: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "DevicesServices");
-
-            migrationBuilder.DropTable(
-                name: "Invoices");
-
-            migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "Devices");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "Invoices");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Services");
         }
     }
 }

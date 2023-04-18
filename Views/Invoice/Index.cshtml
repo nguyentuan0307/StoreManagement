@@ -1,0 +1,42 @@
+﻿@model List<InvoiceView>
+@{
+    ViewData["Title"] = "Danh sách hóa đơn";
+    List<InvoiceView> invoices = Model;
+}
+@using ComputerRepair.DTO;
+@using ComputerRepair.Models;
+<div class="text-center">
+    <h1 class="display-4">Danh sách hóa đơn</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tên khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ngày lập</th>
+                <th>
+                    <a class="btn btn-primary" asp-action="Create" asp-controller="Invoice">Thêm mới</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var invoice in invoices)
+            {
+                <tr>
+                    <td>@invoice.InvoiceID</td>
+                    <td>@invoice.CustomerName</td>
+                    <td>@invoice.TotalPrice</td>
+                    <td>@invoice.InvoiceDate</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="InvoiceDetail" asp-controller="Invoice" asp-route-id="@invoice.InvoiceID">Chi tiết</a>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Invoice" asp-route-id="@invoice.InvoiceID" onclick="return confirm('Bạn có chắc muốn xóa hóa đơn không?')">Xóa</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

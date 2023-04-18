@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "Complete Create";
+    List<Service> services = ViewBag.Services;
+    List<Device> devices = ViewBag.Devies;
+    Customer Customer = ViewBag.customer;
+}
+@using ComputerRepair.DTO;
+@using ComputerRepair.Models;
+<div class="text-center">
+    <h1 class="display-4">Hoàn tất tạo hóa đơn</h1>
+</div>
+
+<div class="row">
+    <div class="mb-3">
+        <label for="CustomerName" class="form-label">Tên khách hàng</label>
+        <input type="text" class="form-control" id="customer-name" name="CustomerName" value="@Customer.CustomerName" readonly>
+    </div>
+    <h4>Danh sách dịch vụ</h4>
+    <table class="table table-bordered" id="table-body">
+        <thead>
+            <tr>
+                <th>Dịch vụ</th>
+                <th>Thiết bị</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody id="service-table-body">
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-sm" id="add-row-btn">Thêm dịch vụ</button>
+</div>
+<div class="mb-3">
+    <label for="TotalPrice" class="form-label">Tổng tiền</label>
+    <input type="text" class="form-control" id="total-price" name="TotalPrice" readonly>
+</div>
+<div class="text-center">
+    <button type="submit" class="btn btn-primary" id="create-invoice-btn">Tạo hóa đơn</button>
+</div>
+<script>
+    // Lấy các đối tượng cần thiết
+    const tbody = document.getElementById('table-body');
+    const services = @Html.Raw(Json.Serialize(ViewBag.Services));
+    const devices = @Html.Raw(Json.Serialize(ViewBag.Devices));
+    const customer = @Html.Raw(Json.Serialize(ViewBag.Customer));
+    // Hàm tạo option cho select
+    function createOption(value, text) {
+        const option = document.createElement('option');
+        option.value = value;
+        option.text = text;
+        return option;
+    }
+
+    // Thêm hàng mới
+    function addRow() {
+        const row = document.createElement('tr');
+
+        // Cột Service
+        const serviceTd = document.createElement('td');
+        const serviceSelect = document.createElement('select');
+        serviceSelect.classList.add('form-select', 'service-select');
+        serviceSelect.name = 'ServiceID';
+        for (const service of services) {
+            console.log(service)
+            const option = createOption(service.serviceID, service.serviceName);
+            serviceSelect.appendChild(option);
+        }
+        serviceSelect.selectedIndex = 0;
+        serviceTd.appendChild(serviceSelect);
+        row.appendChild(serviceTd);
+
+        // Cột Device
+        const deviceTd = document.createElement('td');
+        const deviceSelect = document.createElement('select');
+        deviceSelect.classList.add('form-select', 'device-select');
+        deviceSelect.name = 'DeviceID';
+        for (const device of devices) {
+            const option = createOption(device.deviceID, device.deviceName);
+            deviceSelect.appendChild(option);
+        }
+        deviceSelect.selectedIndex=0;
+        deviceTd.appendChild(deviceSelect);
+        row.appendChild(deviceTd);
+
+        // Cột Quantity
+        const quantityTd = document.createElement('td');
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'number';
+        quantityInput.classList.add('form-control', 'quantity-input');
+        quantityInput.name = 'Quantity';
+        quantityInput.value = '0';
+        quantityTd.appendChild(quantityInput);
+        row.appendChild(quantityTd);
+
+        // Cột Price
+        const priceTd = document.createElement('td');
+        const priceInput = document.createElement('input');
+        priceInput.type = 'number';
+        priceInput.classList.add('form-control', 'price-input');
+        priceInput.name = 'Price';
+        priceInput.value = '0';
+        priceInput.addEventListener('change', calculateTotalPrice);
+        priceTd.appendChild(priceInput);
+        row.appendChild(priceTd);
+
+        // Cột Xóa
+        const deleteTd = document.createElement('td');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'delete-row-btn');
+        deleteBtn.textContent = 'Xóa';
+        deleteTd.appendChild(deleteBtn);
+        row.appendChild(deleteTd);
+
+        tbody.appendChild(row);
+    }
+
+    // Thêm sự kiện click cho nút Thêm
+    const addButton = document.getElementById('add-row-btn');
+    addButton.addEventListener('click', addRow);
+
+    // Thêm sự kiện click cho các nút Xóa
+    tbody.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-row-btn')) {
+            event.target.closest('tr').remove();
+        }
+    });
+    function calculateTotalPrice() {
+        let total = 0;
+        const priceInputs = document.querySelectorAll('.price-input');
+        priceInputs.forEach(input => {
+            total += parseFloat(input.value) || 0;
+        });
+        const totalPriceInput = document.getElementById('total-price');
+        totalPriceInput.value = total.toFixed(2);
+    }
+    const createInvoiceBtn = document.querySelector('#create-invoice-btn');
+
+    createInvoiceBtn.addEventListener('click', function (event) {
+        calculateTotalPrice()
+        const rows = tbody.querySelectorAll('tr')
+        const services_devices = [];
+        for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            const serviceId = row.querySelector('.service-select').value;
+            const deviceId = row.querySelector('.device-select').value;
+            const quantity = row.querySelector('.quantity-input').value;
+            const price = row.querySelector('.price-input').value;
+            const service_device = {
+                ServiceID: parseInt(serviceId),
+                DeviceID: parseInt(deviceId),
+                Quantity: parseInt(quantity),
+                Price: parseFloat(price)
+            };
+            services_devices.push(service_device);
+        }
+        const services_devices_list = services_devices.map(service_device => ({
+            ServiceID: service_device.ServiceID,
+            DeviceID: service_device.DeviceID,
+            Quantity: service_device.Quantity,
+            Price: service_device.Price
+        }));
+        const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" });;
+        const invoice = {
+            CustomerID: customer.customerID,
+            serviceAndDevices: services_devices_list,
+            TotalPrice: parseFloat(document.getElementById('total-price').value),
+            InvoiceDate: now
+        };
+        console.log(JSON.stringify(invoice))
+        event.preventDefault();
+        fetch('/Invoice/CompleteCreate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoice)
+        })
+            .then(response => response.json())
+            .then(data => window.location.href = data.url)
+            .catch(error => console.error(error));
+    });
+</script>

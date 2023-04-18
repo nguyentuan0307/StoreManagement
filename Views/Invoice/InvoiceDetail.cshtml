@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+    Customer Customer = ViewBag.Customer;
+    List<Requestx> requestx = ViewBag.Requestx;
+    Invoice invoice = ViewBag.Invoice;
+}
+@using ComputerRepair.Models
+@using ComputerRepair.DTO
+<div class="text-center">
+    <h1 class="display-4">Chi tiết hóa đơn</h1>
+</div>
+<div class="row">
+    <div class="mb-3">
+        <label for="InvoiceID" class="form-label">ID</label>
+        <input type="text" class="form-control" id="customer-name" value="@invoice.InvoiceID" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="CustomerName" class="form-label">Tên khách hàng</label>
+        <input type="text" class="form-control" id="customer-name" value="@Customer.CustomerName" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="CustomerPhone" class="form-label">Số điện thoại</label>
+        <input type="text" class="form-control" id="customer-name" value="@Customer.Phone" readonly>
+    </div>
+    <h4>Danh sách dịch vụ</h4>
+    <table class="table table-bordered" id="table-body">
+        <thead>
+            <tr>
+                <th>Dịch vụ</th>
+                <th>Thiết bị</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+            </tr>
+        </thead>
+        <tbody id="service-table-body">
+            @foreach (var request in requestx)
+            {
+                <tr>
+                    <td>@request.Service.ServiceName</td>
+                    <td>@request.Device.DeviceName</td>
+                    <td>@request.Quantity</td>
+                    <td>@request.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mb-3">
+        <label for="TotalPrice" class="form-label">Tổng tiền</label>
+        <input type="text" class="form-control" id="total-price" value="@invoice.TotalPrice" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="InvoiceDate" class="form-label">Ngày lập</label>
+        <input type="text" class="form-control" id="total-price" value="@invoice.InvoiceDate" readonly>
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Home")'">Trang chủ</button>
+    </div>
+</div>

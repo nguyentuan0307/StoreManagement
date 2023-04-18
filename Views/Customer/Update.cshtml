@@ -1,0 +1,57 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Chỉnh sửa khách hàng";
+    Customer customer = Model;
+}
+@using ComputerRepair.Models;
+
+<form action="/Customer/Update" method="post">
+    <div class="text-center">
+        <h1 class="display-4">Chỉnh sửa khách hàng</h1>
+    </div>
+    <div class="mb-3">
+        <label for="CustomerID" class="form-label">Id</label>
+        <input type="text" class="form-control" id="UserID" name="CustomerID" value="@customer.CustomerID" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="CustomerName" class="form-label">Tên khách hàng</label>
+        <input type="text" class="form-control" id="CustomerName" name="CustomerName" value="@customer.CustomerName" required />
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Số điện thoại</label>
+        <input type="text" class="form-control" id="Phone" name="Phone" value="@customer.Phone" required />
+        <label id="labelPhone"></label>
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="Email" name="Email" value="@customer.Email" required />
+    </div>
+    <div class="mb-3">
+        <label for="Address" class="form-label">Địa chỉ</label>
+        <input type="text" class="form-control" id="Address" name="Address" value="@customer.Address" required />
+    </div>
+    <button type="submit" class="btn btn-primary" id="addUserBtn">Lưu</button>
+</form>
+
+<script>
+    function validatePhone(event) {
+        const phoneInput = event.target;
+        const phone = phoneInput.value;
+
+        if (isNaN(phone)) {
+            phoneInput.value = phone.slice(0, -1);
+            return;
+        }
+
+        if (phone.startsWith("00") || !phone.startsWith("0")) {
+            document.getElementById("labelPhone").innerText = "Invalid phone format";
+        } else {
+            document.getElementById("labelPhone").innerText = "";
+        }
+    }
+
+    const phoneInput = document.getElementById("Phone");
+    phoneInput.addEventListener("input", validatePhone);
+    phoneInput.addEventListener("blur", validatePhone);
+
+</script>

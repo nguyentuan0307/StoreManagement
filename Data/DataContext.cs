@@ -11,8 +11,7 @@ namespace ComputerRepair.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<DeviceService> DevicesServices { get; set; }
-        public DbSet<Request> Requests { get; set; }
+        public DbSet<Requestx> Requests { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,22 +21,16 @@ namespace ComputerRepair.Data
                 .WithMany(x => x.Users)
                 .HasForeignKey(u => u.RoleID);
 
-            modelBuilder.Entity<DeviceService>()
+            modelBuilder.Entity<Requestx>()
                 .HasOne(ds => ds.Service)
-                .WithMany(u => u.deviceServices)
+                .WithMany(u => u.Requests)
                 .HasForeignKey(ds => ds.ServiceID);
-
-            modelBuilder.Entity<DeviceService>()
+            modelBuilder.Entity<Requestx>()
                 .HasOne(ds => ds.Device)
-                .WithMany(u => u.deviceServices)
+                .WithMany(u => u.Requests)
                 .HasForeignKey(ds => ds.DeviceID);
 
-            modelBuilder.Entity<Request>()
-                .HasOne(r => r.DeviceService)
-                .WithMany(u => u.Requests)
-                .HasForeignKey(r => r.DeviceServiceID);
-
-            modelBuilder.Entity<Request>()
+            modelBuilder.Entity<Requestx>()
                 .HasOne(r => r.Invoice)
                 .WithMany(i => i.Requests)
                 .HasForeignKey(r => r.InvoiceID);
@@ -143,46 +136,6 @@ namespace ComputerRepair.Data
                     Address = "Thành phố Hồ Chí Minh"
                 },
             };
-            var invoices = new List<Invoice>
-            {
-                new Invoice
-                {
-                    InvoiceID =1,
-                    CustomerID=1,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },new Invoice
-                {
-                    InvoiceID =2,
-                    CustomerID=2,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },new Invoice
-                {
-                    InvoiceID =3,
-                    CustomerID=3,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },new Invoice
-                {
-                    InvoiceID =4,
-                    CustomerID=4,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },new Invoice
-                {
-                    InvoiceID =5,
-                    CustomerID=5,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },new Invoice
-                {
-                    InvoiceID =6,
-                    CustomerID=6,
-                    InvoiceDate = DateTime.Now,
-                    TotalPrice=0
-                },
-            };
             var devices = new List<Device>
             {
                 new Device
@@ -235,47 +188,11 @@ namespace ComputerRepair.Data
                 new Service { ServiceID = 6,ServiceName = "Cài đặt hệ điều hành", Description = "Cài đặt hệ điều hành cho máy tính" },
                 new Service { ServiceID = 7,ServiceName = "Linh kiện", Description = "Cung cấp linh kiện cho máy tính" }
             };
-            var devicesservices = new List<DeviceService>
-            {
-                new DeviceService
-                {
-                    DeviceServiceID=1,
-                    ServiceID =1,
-                    DeviceID= 4,
-                    Price = 1000
-                },new DeviceService
-                {
-                    DeviceServiceID=2,
-                    ServiceID =2,
-                    DeviceID= 5,
-                    Price = 5
-                },new DeviceService
-                {
-                    DeviceServiceID=3,
-                    ServiceID =3,
-                    DeviceID= 3,
-                    Price = 6
-                },
-            };
-            var requests = new List<Request>
-            {
-                new Request {RequestID =1,DeviceServiceID=1,InvoiceID=1,Quantity=1},
-                new Request {RequestID =2,DeviceServiceID=2,InvoiceID=1,Quantity=1},
-                new Request {RequestID =3,DeviceServiceID=3,InvoiceID=2,Quantity=1},
-                new Request {RequestID =4,DeviceServiceID=1,InvoiceID=2,Quantity=1},
-                new Request {RequestID =5,DeviceServiceID=2,InvoiceID=3,Quantity=1},
-                new Request {RequestID =6,DeviceServiceID=3,InvoiceID=4,Quantity=1},
-                new Request {RequestID =7,DeviceServiceID=1,InvoiceID=5,Quantity=1},
-                new Request {RequestID =8,DeviceServiceID=2,InvoiceID=6,Quantity=1},
-            };
             modelBuilder.Entity<Role>().HasData(roles);
             modelBuilder.Entity<User>().HasData(users);
             modelBuilder.Entity<Customer>().HasData(customers);
-            modelBuilder.Entity<Invoice>().HasData(invoices);
             modelBuilder.Entity<Device>().HasData(devices);
             modelBuilder.Entity<Service>().HasData(services);
-            modelBuilder.Entity<DeviceService>().HasData(devicesservices);
-            modelBuilder.Entity<Request>().HasData(requests);
         }
 
     }

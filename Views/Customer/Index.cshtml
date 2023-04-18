@@ -1,0 +1,44 @@
+﻿@model List<CustomerView>
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+    List<CustomerView> customers = Model;
+}
+@using ComputerRepair.DTO;
+@using ComputerRepair.Models;
+<div class="text-center">
+    <h1 class="display-4">Quản lý khách hàng</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Địa chỉ</th>
+                <th>
+                    <a class="btn btn-primary" asp-action="Add" asp-controller="Customer">Thêm mới</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td>@customer.CustomerID</td>
+                    <td>@customer.CustomerName</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.Address</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Update" asp-controller="Customer" asp-route-id="@customer.CustomerID">Cập nhật</a>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Customer" asp-route-id="@customer.CustomerID" onclick="return confirm('Bạn có chắc muốn xóa khách hàng @customer.CustomerName không?')">Xóa</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

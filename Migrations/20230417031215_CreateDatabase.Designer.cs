@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComputerRepair.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230415124752_CreateDatabase")]
+    [Migration("20230417031215_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -167,55 +167,6 @@ namespace ComputerRepair.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ComputerRepair.Models.DeviceService", b =>
-                {
-                    b.Property<int>("DeviceServiceID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeviceServiceID"));
-
-                    b.Property<int>("DeviceID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DeviceServiceID");
-
-                    b.HasIndex("DeviceID");
-
-                    b.HasIndex("ServiceID");
-
-                    b.ToTable("DevicesServices");
-
-                    b.HasData(
-                        new
-                        {
-                            DeviceServiceID = 1,
-                            DeviceID = 4,
-                            Price = 1000,
-                            ServiceID = 1
-                        },
-                        new
-                        {
-                            DeviceServiceID = 2,
-                            DeviceID = 5,
-                            Price = 5,
-                            ServiceID = 2
-                        },
-                        new
-                        {
-                            DeviceServiceID = 3,
-                            DeviceID = 3,
-                            Price = 6,
-                            ServiceID = 3
-                        });
-                });
-
             modelBuilder.Entity("ComputerRepair.Models.Invoice", b =>
                 {
                     b.Property<int>("InvoiceID")
@@ -230,12 +181,17 @@ namespace ComputerRepair.Migrations
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("RequestxID")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("InvoiceID");
 
                     b.HasIndex("CustomerID");
+
+                    b.HasIndex("RequestxID");
 
                     b.ToTable("Invoices");
 
@@ -244,128 +200,78 @@ namespace ComputerRepair.Migrations
                         {
                             InvoiceID = 1,
                             CustomerID = 1,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4117),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1259),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 2,
                             CustomerID = 2,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4128),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1268),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 3,
                             CustomerID = 3,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4130),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1269),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 4,
                             CustomerID = 4,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4131),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1270),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 5,
                             CustomerID = 5,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4132),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1272),
                             TotalPrice = 0m
                         },
                         new
                         {
                             InvoiceID = 6,
                             CustomerID = 6,
-                            InvoiceDate = new DateTime(2023, 4, 15, 19, 47, 52, 294, DateTimeKind.Local).AddTicks(4134),
+                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1273),
                             TotalPrice = 0m
                         });
                 });
 
-            modelBuilder.Entity("ComputerRepair.Models.Request", b =>
+            modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>
                 {
-                    b.Property<int>("RequestID")
+                    b.Property<int>("RequestxID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestxID"));
 
-                    b.Property<int>("DeviceServiceID")
+                    b.Property<int>("DeviceID")
                         .HasColumnType("int");
 
                     b.Property<int>("InvoiceID")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("RequestID");
+                    b.Property<int>("ServiceID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("DeviceServiceID");
+                    b.HasKey("RequestxID");
+
+                    b.HasIndex("DeviceID");
 
                     b.HasIndex("InvoiceID");
 
-                    b.ToTable("Requests");
+                    b.HasIndex("ServiceID");
 
-                    b.HasData(
-                        new
-                        {
-                            RequestID = 1,
-                            DeviceServiceID = 1,
-                            InvoiceID = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 2,
-                            DeviceServiceID = 2,
-                            InvoiceID = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 3,
-                            DeviceServiceID = 3,
-                            InvoiceID = 2,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 4,
-                            DeviceServiceID = 1,
-                            InvoiceID = 2,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 5,
-                            DeviceServiceID = 2,
-                            InvoiceID = 3,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 6,
-                            DeviceServiceID = 3,
-                            InvoiceID = 4,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 7,
-                            DeviceServiceID = 1,
-                            InvoiceID = 5,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            RequestID = 8,
-                            DeviceServiceID = 2,
-                            InvoiceID = 6,
-                            Quantity = 1
-                        });
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Role", b =>
@@ -541,25 +447,6 @@ namespace ComputerRepair.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ComputerRepair.Models.DeviceService", b =>
-                {
-                    b.HasOne("ComputerRepair.Models.Device", "Device")
-                        .WithMany("deviceServices")
-                        .HasForeignKey("DeviceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ComputerRepair.Models.Service", "Service")
-                        .WithMany("deviceServices")
-                        .HasForeignKey("ServiceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Device");
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("ComputerRepair.Models.Invoice", b =>
                 {
                     b.HasOne("ComputerRepair.Models.Customer", "Customer")
@@ -568,14 +455,18 @@ namespace ComputerRepair.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ComputerRepair.Models.Requestx", null)
+                        .WithMany("Invoices")
+                        .HasForeignKey("RequestxID");
+
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("ComputerRepair.Models.Request", b =>
+            modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>
                 {
-                    b.HasOne("ComputerRepair.Models.DeviceService", "DeviceService")
+                    b.HasOne("ComputerRepair.Models.Device", "Device")
                         .WithMany("Requests")
-                        .HasForeignKey("DeviceServiceID")
+                        .HasForeignKey("DeviceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -585,9 +476,17 @@ namespace ComputerRepair.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DeviceService");
+                    b.HasOne("ComputerRepair.Models.Service", "Service")
+                        .WithMany("Requests")
+                        .HasForeignKey("ServiceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
 
                     b.Navigation("Invoice");
+
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.User", b =>
@@ -608,17 +507,17 @@ namespace ComputerRepair.Migrations
 
             modelBuilder.Entity("ComputerRepair.Models.Device", b =>
                 {
-                    b.Navigation("deviceServices");
-                });
-
-            modelBuilder.Entity("ComputerRepair.Models.DeviceService", b =>
-                {
                     b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Invoice", b =>
                 {
                     b.Navigation("Requests");
+                });
+
+            modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Role", b =>
@@ -628,7 +527,7 @@ namespace ComputerRepair.Migrations
 
             modelBuilder.Entity("ComputerRepair.Models.Service", b =>
                 {
-                    b.Navigation("deviceServices");
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

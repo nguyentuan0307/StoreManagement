@@ -2,11 +2,13 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>Xin chào!</h1>
 @if (User.Identity.IsAuthenticated)
 {
+    <h1>Xin chào @User.Identity.Name</h1>
+    <h1>Chúc bạn làm việc vui vẻ</h1>
+    <h2>Bắt đầu tạo hóa đơn</h2>
     <div>
-        @*Thêm các sự kiện tạo ở đây*@
+            <a class="btn btn-primary" asp-action="Create" asp-controller="Invoice">Thêm mới</a>
     </div>
 }
 else
@@ -16,3 +18,47 @@ else
         <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Login">Đăng nhập</a>
     </div>
 }
+<style>
+    /* Style cho phần chào hỏi */
+    h1 {
+        font-size: 3rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+        /* Style cho phần lời chúc */
+        h1 + h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+    /* Style cho phần tạo hóa đơn */
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    /* Style cho nút Thêm mới */
+    .btn-primary {
+        font-size: 1.2rem;
+        display: block;
+        margin: 3rem auto;
+        width: 10rem;
+    }
+
+    /* Style cho phần đăng nhập */
+    p {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    /* Style cho nút Đăng nhập */
+    .btn-primary + a {
+        display: block;
+        margin: 3rem auto;
+        width: 10rem;
+    }
+</style>
