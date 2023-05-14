@@ -8,6 +8,9 @@
 @using ComputerRepair.Models;
 <div class="text-center">
     <h1 class="display-4">Quản lý dịch vụ</h1>
+    <div class="search-container" style="text-align: left;">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,8 +30,8 @@
             {
                 <tr>
                     <td>@count</td>
-                    <td>@sevice.ServiceName</td>
-                    <td>@sevice.Description</td>
+                    <td style="text-align: left;">@sevice.ServiceName</td>
+                    <td style="text-align: left;">@sevice.Description</td>
                     @if (User.IsInRole("admin"))
                     {
                         <td>
@@ -43,3 +46,24 @@
     </table>
 </div>
 
+<script>
+    // Lấy danh sách các hàng trong bảng
+    const tableRows = Array.from(document.querySelectorAll("table.table-striped tbody tr"));
+
+    // Xử lý sự kiện nhập vào input tìm kiếm
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Lặp qua từng hàng trong bảng để tìm kiếm và ẩn/hiện tùy thuộc vào kết quả tìm kiếm
+        tableRows.forEach(function (row) {
+            const rowData = row.innerText.toLowerCase();
+
+            if (rowData.includes(searchText)) {
+                row.style.display = ""; // Hiển thị nếu kết quả tìm kiếm
+            } else {
+                row.style.display = "none"; // Ẩn nếu không tìm thấy
+            }
+        });
+    });
+</script>

@@ -143,6 +143,7 @@ namespace ComputerRepair.Data
                     DeviceName = "Bàn phím",
                     Description = "Bàn phím máy tính cơ học đen trắng",
                     Manufacturer = "Logitech",
+                    WarrantyPeriod = 0,
                     Quantity = 10
                 },
                 new Device
@@ -151,6 +152,7 @@ namespace ComputerRepair.Data
                     DeviceName = "Chuột",
                     Description = "Chuột máy tính không dây màu đen",
                     Manufacturer = "Microsoft",
+                    WarrantyPeriod = 0,
                     Quantity = 15
                 },
                 new Device
@@ -159,6 +161,7 @@ namespace ComputerRepair.Data
                     DeviceName = "Màn hình",
                     Description = "Màn hình LCD 24 inch màu đen",
                     Manufacturer = "Samsung",
+                    WarrantyPeriod = 0,
                     Quantity = 5
                 },
                 new Device
@@ -167,6 +170,7 @@ namespace ComputerRepair.Data
                     DeviceName = "Pin",
                     Description = "Pin laptop chính hãng",
                     Manufacturer = "Samsung",
+                    WarrantyPeriod = 0,
                     Quantity = 5
                 },
                 new Device
@@ -175,6 +179,7 @@ namespace ComputerRepair.Data
                     DeviceName = "Không",
                     Description = "Không sử dụng linh kiện",
                     Manufacturer = "Không",
+                    WarrantyPeriod = 0,
                     Quantity = 0
                 }
             };

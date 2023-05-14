@@ -37,7 +37,6 @@
 
 <script>
     var customers = @Html.Raw(Json.Serialize(ViewBag.Customers));
-    console.log(customers);
     var select = document.getElementById("customer-select");
     var email = document.getElementById("email");
     var phone = document.getElementById("phone");
@@ -46,7 +45,6 @@
     select.addEventListener("click", function () {
         var customerId = parseInt(select.value);
         var customer = customers.find(function (c) { return c.customerID === customerId; });
-        console.log(customer);
         if (customer) {
             email.value = customer.email || "";
             phone.value = customer.phone || "";

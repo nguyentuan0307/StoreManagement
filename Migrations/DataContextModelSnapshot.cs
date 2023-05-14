@@ -117,6 +117,9 @@ namespace ComputerRepair.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("WarrantyPeriod")
+                        .HasColumnType("int");
+
                     b.HasKey("DeviceID");
 
                     b.ToTable("Devices");
@@ -128,7 +131,8 @@ namespace ComputerRepair.Migrations
                             Description = "Bàn phím máy tính cơ học đen trắng",
                             DeviceName = "Bàn phím",
                             Manufacturer = "Logitech",
-                            Quantity = 10
+                            Quantity = 10,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -136,7 +140,8 @@ namespace ComputerRepair.Migrations
                             Description = "Chuột máy tính không dây màu đen",
                             DeviceName = "Chuột",
                             Manufacturer = "Microsoft",
-                            Quantity = 15
+                            Quantity = 15,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -144,7 +149,8 @@ namespace ComputerRepair.Migrations
                             Description = "Màn hình LCD 24 inch màu đen",
                             DeviceName = "Màn hình",
                             Manufacturer = "Samsung",
-                            Quantity = 5
+                            Quantity = 5,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -152,7 +158,8 @@ namespace ComputerRepair.Migrations
                             Description = "Pin laptop chính hãng",
                             DeviceName = "Pin",
                             Manufacturer = "Samsung",
-                            Quantity = 5
+                            Quantity = 5,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -160,7 +167,8 @@ namespace ComputerRepair.Migrations
                             Description = "Không sử dụng linh kiện",
                             DeviceName = "Không",
                             Manufacturer = "Không",
-                            Quantity = 0
+                            Quantity = 0,
+                            WarrantyPeriod = 0
                         });
                 });
 

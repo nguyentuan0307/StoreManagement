@@ -38,6 +38,7 @@ namespace ComputerRepair.Migrations
                     DeviceName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Manufacturer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WarrantyPeriod = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -73,6 +74,27 @@ namespace ComputerRepair.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Invoices",
+                columns: table => new
+                {
+                    InvoiceID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -94,28 +116,6 @@ namespace ComputerRepair.Migrations
                         column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    InvoiceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RequestxID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
-                    table.ForeignKey(
-                        name: "FK_Invoices_Customers_CustomerID",
-                        column: x => x.CustomerID,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -169,14 +169,14 @@ namespace ComputerRepair.Migrations
 
             migrationBuilder.InsertData(
                 table: "Devices",
-                columns: new[] { "DeviceID", "Description", "DeviceName", "Manufacturer", "Quantity" },
+                columns: new[] { "DeviceID", "Description", "DeviceName", "Manufacturer", "Quantity", "WarrantyPeriod" },
                 values: new object[,]
                 {
-                    { 1, "Bàn phím máy tính cơ học đen trắng", "Bàn phím", "Logitech", 10 },
-                    { 2, "Chuột máy tính không dây màu đen", "Chuột", "Microsoft", 15 },
-                    { 3, "Màn hình LCD 24 inch màu đen", "Màn hình", "Samsung", 5 },
-                    { 4, "Pin laptop chính hãng", "Pin", "Samsung", 5 },
-                    { 5, "Không sử dụng linh kiện", "Không", "Không", 0 }
+                    { 1, "Bàn phím máy tính cơ học đen trắng", "Bàn phím", "Logitech", 10, 0 },
+                    { 2, "Chuột máy tính không dây màu đen", "Chuột", "Microsoft", 15, 0 },
+                    { 3, "Màn hình LCD 24 inch màu đen", "Màn hình", "Samsung", 5, 0 },
+                    { 4, "Pin laptop chính hãng", "Pin", "Samsung", 5, 0 },
+                    { 5, "Không sử dụng linh kiện", "Không", "Không", 0, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -203,19 +203,6 @@ namespace ComputerRepair.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Invoices",
-                columns: new[] { "InvoiceID", "CustomerID", "InvoiceDate", "RequestxID", "TotalPrice" },
-                values: new object[,]
-                {
-                    { 1, 1, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1259), null, 0m },
-                    { 2, 2, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1268), null, 0m },
-                    { 3, 3, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1269), null, 0m },
-                    { 4, 4, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1270), null, 0m },
-                    { 5, 5, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1272), null, 0m },
-                    { 6, 6, new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1273), null, 0m }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserID", "Address", "Email", "FullName", "Password", "Phone", "RoleID", "Username" },
                 values: new object[,]
@@ -230,11 +217,6 @@ namespace ComputerRepair.Migrations
                 name: "IX_Invoices_CustomerID",
                 table: "Invoices",
                 column: "CustomerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoices_RequestxID",
-                table: "Invoices",
-                column: "RequestxID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_DeviceID",
@@ -255,37 +237,16 @@ namespace ComputerRepair.Migrations
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Invoices_Requests_RequestxID",
-                table: "Invoices",
-                column: "RequestxID",
-                principalTable: "Requests",
-                principalColumn: "RequestxID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Invoices_Customers_CustomerID",
-                table: "Invoices");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Invoices_Requests_RequestxID",
-                table: "Invoices");
+            migrationBuilder.DropTable(
+                name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "Devices");
@@ -295,6 +256,12 @@ namespace ComputerRepair.Migrations
 
             migrationBuilder.DropTable(
                 name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
         }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComputerRepair.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230417031215_CreateDatabase")]
+    [Migration("20230514114005_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -120,6 +120,9 @@ namespace ComputerRepair.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("WarrantyPeriod")
+                        .HasColumnType("int");
+
                     b.HasKey("DeviceID");
 
                     b.ToTable("Devices");
@@ -131,7 +134,8 @@ namespace ComputerRepair.Migrations
                             Description = "Bàn phím máy tính cơ học đen trắng",
                             DeviceName = "Bàn phím",
                             Manufacturer = "Logitech",
-                            Quantity = 10
+                            Quantity = 10,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -139,7 +143,8 @@ namespace ComputerRepair.Migrations
                             Description = "Chuột máy tính không dây màu đen",
                             DeviceName = "Chuột",
                             Manufacturer = "Microsoft",
-                            Quantity = 15
+                            Quantity = 15,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -147,7 +152,8 @@ namespace ComputerRepair.Migrations
                             Description = "Màn hình LCD 24 inch màu đen",
                             DeviceName = "Màn hình",
                             Manufacturer = "Samsung",
-                            Quantity = 5
+                            Quantity = 5,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -155,7 +161,8 @@ namespace ComputerRepair.Migrations
                             Description = "Pin laptop chính hãng",
                             DeviceName = "Pin",
                             Manufacturer = "Samsung",
-                            Quantity = 5
+                            Quantity = 5,
+                            WarrantyPeriod = 0
                         },
                         new
                         {
@@ -163,7 +170,8 @@ namespace ComputerRepair.Migrations
                             Description = "Không sử dụng linh kiện",
                             DeviceName = "Không",
                             Manufacturer = "Không",
-                            Quantity = 0
+                            Quantity = 0,
+                            WarrantyPeriod = 0
                         });
                 });
 
@@ -181,9 +189,6 @@ namespace ComputerRepair.Migrations
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RequestxID")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -191,53 +196,7 @@ namespace ComputerRepair.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.HasIndex("RequestxID");
-
                     b.ToTable("Invoices");
-
-                    b.HasData(
-                        new
-                        {
-                            InvoiceID = 1,
-                            CustomerID = 1,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1259),
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            InvoiceID = 2,
-                            CustomerID = 2,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1268),
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            InvoiceID = 3,
-                            CustomerID = 3,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1269),
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            InvoiceID = 4,
-                            CustomerID = 4,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1270),
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            InvoiceID = 5,
-                            CustomerID = 5,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1272),
-                            TotalPrice = 0m
-                        },
-                        new
-                        {
-                            InvoiceID = 6,
-                            CustomerID = 6,
-                            InvoiceDate = new DateTime(2023, 4, 17, 10, 12, 15, 83, DateTimeKind.Local).AddTicks(1273),
-                            TotalPrice = 0m
-                        });
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>
@@ -455,10 +414,6 @@ namespace ComputerRepair.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ComputerRepair.Models.Requestx", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("RequestxID");
-
                     b.Navigation("Customer");
                 });
 
@@ -513,11 +468,6 @@ namespace ComputerRepair.Migrations
             modelBuilder.Entity("ComputerRepair.Models.Invoice", b =>
                 {
                     b.Navigation("Requests");
-                });
-
-            modelBuilder.Entity("ComputerRepair.Models.Requestx", b =>
-                {
-                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("ComputerRepair.Models.Role", b =>

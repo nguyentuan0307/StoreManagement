@@ -8,6 +8,9 @@
 @using ComputerRepair.Models;
 <div class="text-center">
     <h1 class="display-4">Quản lý người dùng</h1>
+    <div class="search-container" style="text-align: left;">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -29,13 +32,13 @@
             {
                 <tr>
                     <td>@count</td>
-                    <td>@user.FullName</td>
-                    <td>@user.Email</td>
-                    <td>@user.Phone</td>
-                    <td>@user.Address</td>
-                    <td>@user.RoleName</td>
-                    <td>@user.Username</td>
-                    <td data-password="@user.Password" ondblclick="togglePassword(this)">*******</td>
+                    <td style="text-align: left;">@user.FullName</td>
+                    <td style="text-align: left;">@user.Email</td>
+                    <td style="text-align: left;">@user.Phone</td>
+                    <td style="text-align: left;">@user.Address</td>
+                    <td style="text-align: left;">@user.RoleName</td>
+                    <td style="text-align: left;">@user.Username</td>
+                    <td style="text-align: left;" data-password="@user.Password" ondblclick="togglePassword(this)">*******</td>
                     <td>
                         <a class="btn btn-success" asp-action="Update" asp-controller="User" asp-route-id="@user.UserID">Cập nhật</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@user.UserID" onclick="return confirm('Bạn có chắc muốn xóa tài khoản của user @user.Username không?')">Xóa</a>
@@ -55,5 +58,23 @@
             element.innerHTML = '*******';
         }
     }
-</script>
+    // Lấy danh sách các hàng trong bảng
+    const tableRows = Array.from(document.querySelectorAll("table.table-striped tbody tr"));
 
+    // Xử lý sự kiện nhập vào input tìm kiếm
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Lặp qua từng hàng trong bảng để tìm kiếm và ẩn/hiện tùy thuộc vào kết quả tìm kiếm
+        tableRows.forEach(function (row) {
+            const rowData = row.innerText.toLowerCase();
+
+            if (rowData.includes(searchText)) {
+                row.style.display = ""; // Hiển thị nếu kết quả tìm kiếm
+            } else {
+                row.style.display = "none"; // Ẩn nếu không tìm thấy
+            }
+        });
+    });
+</script>

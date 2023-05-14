@@ -8,6 +8,9 @@
 @using ComputerRepair.Models;
 <div class="text-center">
     <h1 class="display-4">Danh sách hóa đơn</h1>
+    <div class="search-container" style="text-align: left;">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -25,9 +28,9 @@
             {
                 <tr>
                     <td>@count</td>
-                    <td>@invoice.CustomerName</td>
+                    <td style="text-align: left;">@invoice.CustomerName</td>
                     <td>@Math.Floor(invoice.TotalPrice)</td>
-                    <td>@invoice.InvoiceDate</td>
+                    <td style="text-align: left;">@invoice.InvoiceDate</td>
                     <td>
                         <a class="btn btn-success" asp-action="InvoiceDetail" asp-controller="Invoice" asp-route-id="@invoice.InvoiceID">Chi tiết</a>
                         @if (User.IsInRole("admin"))
@@ -42,3 +45,24 @@
     </table>
 </div>
 
+<script>
+    // Lấy danh sách các hàng trong bảng
+    const tableRows = Array.from(document.querySelectorAll("table.table-striped tbody tr"));
+
+    // Xử lý sự kiện nhập vào input tìm kiếm
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Lặp qua từng hàng trong bảng để tìm kiếm và ẩn/hiện tùy thuộc vào kết quả tìm kiếm
+        tableRows.forEach(function (row) {
+            const rowData = row.innerText.toLowerCase();
+
+            if (rowData.includes(searchText)) {
+                row.style.display = ""; // Hiển thị nếu kết quả tìm kiếm
+            } else {
+                row.style.display = "none"; // Ẩn nếu không tìm thấy
+            }
+        });
+    });
+</script>

@@ -48,6 +48,7 @@ namespace ComputerRepair.Services
                 deviceTemp.DeviceName = device.DeviceName;
                 deviceTemp.Description = device.Description;
                 deviceTemp.Manufacturer = device.Manufacturer;
+                deviceTemp.WarrantyPeriod = device.WarrantyPeriod;
                 deviceTemp.Quantity = device.Quantity;
                 _dataContext.SaveChanges();
                 return true;

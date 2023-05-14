@@ -30,6 +30,7 @@
                 <th>Dịch vụ</th>
                 <th>Thiết bị</th>
                 <th>Số lượng</th>
+                <th>Bảo hành(Ngày)</th>
                 <th>Giá</th>
             </tr>
         </thead>
@@ -40,7 +41,8 @@
                     <td>@request.Service.ServiceName</td>
                     <td>@request.Device.DeviceName</td>
                     <td>@request.Quantity</td>
-                        <td>@Math.Floor(request.Price)</td>
+                    <td>@request.Device.WarrantyPeriod</td>
+                    <td>@Math.Floor(request.Price)</td>
                 </tr>
             }
         </tbody>
@@ -59,7 +61,7 @@
         </a>
     </div>
     <div class="mb-3">
-    <a asp-action="Index" asp-controller="Invoice">
+        <a asp-action="Index" asp-controller="Invoice">
             <i class="bi bi-arrow-left-square"></i>Danh sách hóa đơn
         </a>
     </div>

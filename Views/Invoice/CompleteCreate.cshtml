@@ -22,6 +22,7 @@
                 <th>Dịch vụ</th>
                 <th>Thiết bị</th>
                 <th>Số lượng</th>
+                <th>Thời gian bảo hành(ngày)</th>
                 <th>Giá</th>
                 <th>Xóa</th>
             </tr>
@@ -62,7 +63,6 @@
         serviceSelect.classList.add('form-select', 'service-select');
         serviceSelect.name = 'ServiceID';
         for (const service of services) {
-            console.log(service)
             const option = createOption(service.serviceID, service.serviceName);
             serviceSelect.appendChild(option);
         }
@@ -83,8 +83,10 @@
             const selectedDevice = devices[deviceSelect.selectedIndex];
             const maxQuantity = selectedDevice.quantity;
             quantityInput.max = maxQuantity;
-
+            const warrantyPeriod = selectedDevice.warrantyPeriod;
+            warrantySpan.textContent = warrantyPeriod;
         });
+
         for (const device of devices) {
             const option = createOption(device.deviceID, device.deviceName);
             deviceSelect.appendChild(option);
@@ -109,15 +111,25 @@
         quantityInput.addEventListener('blur', function () {
             const quantity = parseInt(quantityInput.value);
             const maxQuantity = parseInt(devices[deviceSelect.selectedIndex].quantity);
-            console.log(maxQuantity, quantity)
-            if (quantity > maxQuantity) {
-                quantityInput.setCustomValidity('Số lượng không đủ ( Còn lại : ' + maxQuantity+' )');
+            if (quantity < 0) { // Kiểm tra nếu số lượng âm
+                quantityInput.setCustomValidity('Số lượng không hợp lệ');
+                quantityInput.focus();
+            } else if (quantity > maxQuantity) {
+                quantityInput.setCustomValidity('Số lượng không đủ (Còn lại: ' + maxQuantity + ')');
                 quantityInput.focus();
             } else {
                 quantityInput.setCustomValidity('');
             }
             quantityInput.reportValidity();
         });
+
+        // Cột Bảo hành (Ngày)
+        const warrantyTd = document.createElement('td');
+        const warrantySpan = document.createElement('span');
+        warrantySpan.classList.add('warranty-span');
+        warrantySpan.textContent = '0'; // Mặc định giá trị là 0
+        warrantyTd.appendChild(warrantySpan);
+        row.appendChild(warrantyTd);
 
         // Cột Price
         const priceTd = document.createElement('td');
@@ -195,7 +207,6 @@
             TotalPrice: parseFloat(document.getElementById('total-price').value),
             InvoiceDate: now
         };
-        console.log(JSON.stringify(invoice))
         event.preventDefault();
         fetch('/Invoice/CompleteCreate', {
             method: 'POST',

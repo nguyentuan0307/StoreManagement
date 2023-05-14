@@ -26,6 +26,7 @@ namespace ComputerRepair.Controllers
                     DeviceName = device.DeviceName,
                     Description = device.Description,
                     Manufacturer = device.Manufacturer,
+                    WarrantyPeriod = device.WarrantyPeriod,
                     Quantity = device.Quantity,
                 });
             }
