@@ -70,16 +70,27 @@
         serviceTd.appendChild(serviceSelect);
         row.appendChild(serviceTd);
 
-        // Cột Device
+        // Lấy giá trị device.quantity từ cột Device được chọn
         const deviceTd = document.createElement('td');
         const deviceSelect = document.createElement('select');
         deviceSelect.classList.add('form-select', 'device-select');
         deviceSelect.name = 'DeviceID';
+
+        // Xử lý sự kiện khi chọn device
+        const note = document.createElement('span');
+        note.classList.add('quantity-note');
+        deviceSelect.addEventListener('change', function () {
+            const selectedDevice = devices[deviceSelect.selectedIndex];
+            const maxQuantity = selectedDevice.quantity;
+            quantityInput.max = maxQuantity;
+
+        });
         for (const device of devices) {
             const option = createOption(device.deviceID, device.deviceName);
             deviceSelect.appendChild(option);
         }
-        deviceSelect.selectedIndex=0;
+
+        deviceSelect.selectedIndex = 0;
         deviceTd.appendChild(deviceSelect);
         row.appendChild(deviceTd);
 
@@ -89,9 +100,24 @@
         quantityInput.type = 'number';
         quantityInput.classList.add('form-control', 'quantity-input');
         quantityInput.name = 'Quantity';
-        quantityInput.value = '0';
+        quantityInput.min = '0'; // Đặt giá trị tối thiểu là 0
+
         quantityTd.appendChild(quantityInput);
         row.appendChild(quantityTd);
+
+        // Xử lý sự kiện khi giá trị số lượng thay đổi
+        quantityInput.addEventListener('blur', function () {
+            const quantity = parseInt(quantityInput.value);
+            const maxQuantity = parseInt(devices[deviceSelect.selectedIndex].quantity);
+            console.log(maxQuantity, quantity)
+            if (quantity > maxQuantity) {
+                quantityInput.setCustomValidity('Số lượng không đủ ( Còn lại : ' + maxQuantity+' )');
+                quantityInput.focus();
+            } else {
+                quantityInput.setCustomValidity('');
+            }
+            quantityInput.reportValidity();
+        });
 
         // Cột Price
         const priceTd = document.createElement('td');
@@ -102,6 +128,7 @@
         priceInput.value = '0';
         priceInput.addEventListener('change', calculateTotalPrice);
         priceTd.appendChild(priceInput);
+        priceInput.required = 'required'; // Thêm thuộc tính required
         row.appendChild(priceTd);
 
         // Cột Xóa
@@ -133,7 +160,7 @@
             total += parseFloat(input.value) || 0;
         });
         const totalPriceInput = document.getElementById('total-price');
-        totalPriceInput.value = total.toFixed(2);
+        totalPriceInput.value = total;
     }
     const createInvoiceBtn = document.querySelector('#create-invoice-btn');
 

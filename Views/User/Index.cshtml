@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Quản lý người dùng";
     List<UserView> users = Model;
+    int count = 1;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
@@ -10,7 +11,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>STT</th>
                 <th>Họ Và Tên</th>
                 <th>Email</th>
                 <th>Số điện thoại</th>
@@ -27,7 +28,7 @@
             @foreach (var user in users)
             {
                 <tr>
-                    <td>@user.UserID</td>
+                    <td>@count</td>
                     <td>@user.FullName</td>
                     <td>@user.Email</td>
                     <td>@user.Phone</td>
@@ -40,6 +41,7 @@
                         <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@user.UserID" onclick="return confirm('Bạn có chắc muốn xóa tài khoản của user @user.Username không?')">Xóa</a>
                     </td>
                 </tr>
+                count++;
             }
         </tbody>
     </table>

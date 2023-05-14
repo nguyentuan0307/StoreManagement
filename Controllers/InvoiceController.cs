@@ -104,6 +104,10 @@ namespace ComputerRepair.Controllers
                         InvoiceID = invoiceID
                     };
                     _requestService.Addrequest(requestToDB);
+                    if (_deviceService.UpdateQuantityDevice(i.DeviceID, i.Quantity))
+                    {
+
+                    }
                 }
                 if (ModelState.IsValid)
                 {

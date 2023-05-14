@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Quản lý khách hàng";
     List<CustomerView> customers = Model;
+    int count = 1;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
@@ -10,7 +11,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>STT</th>
                 <th>Tên khách hàng</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
@@ -24,7 +25,7 @@
             @foreach (var customer in customers)
             {
                 <tr>
-                    <td>@customer.CustomerID</td>
+                    <td>@count</td>
                     <td>@customer.CustomerName</td>
                     <td>@customer.Phone</td>
                     <td>@customer.Email</td>
@@ -37,6 +38,7 @@
                         }
                     </td>
                 </tr>
+                count++;
             }
         </tbody>
     </table>

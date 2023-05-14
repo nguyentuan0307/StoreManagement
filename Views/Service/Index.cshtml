@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Quản lý dịch vụ";
     List<ServiceView> sevices = Model;
+    int count = 1;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
@@ -10,7 +11,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>STT</th>
                 <th>Tên dịch vụ</th>
                 <th>Mô tả</th>
                 @if (User.IsInRole("admin"))
@@ -25,7 +26,7 @@
             @foreach (var sevice in sevices)
             {
                 <tr>
-                    <td>@sevice.ServiceID</td>
+                    <td>@count</td>
                     <td>@sevice.ServiceName</td>
                     <td>@sevice.Description</td>
                     @if (User.IsInRole("admin"))
@@ -36,6 +37,7 @@
                     </td>
                     }
                 </tr>
+                count++;
             }
         </tbody>
     </table>

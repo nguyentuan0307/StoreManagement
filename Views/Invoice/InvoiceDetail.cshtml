@@ -6,6 +6,7 @@
 }
 @using ComputerRepair.Models
 @using ComputerRepair.DTO
+
 <div class="text-center">
     <h1 class="display-4">Chi tiết hóa đơn</h1>
 </div>
@@ -39,23 +40,27 @@
                     <td>@request.Service.ServiceName</td>
                     <td>@request.Device.DeviceName</td>
                     <td>@request.Quantity</td>
-                    <td>@request.Price</td>
+                        <td>@Math.Floor(request.Price)</td>
                 </tr>
             }
         </tbody>
     </table>
     <div class="mb-3">
         <label for="TotalPrice" class="form-label">Tổng tiền</label>
-        <input type="text" class="form-control" id="total-price" value="@invoice.TotalPrice" readonly>
+        <input type="text" class="form-control" id="total-price" value="@Math.Floor(invoice.TotalPrice)" readonly>
     </div>
     <div class="mb-3">
         <label for="InvoiceDate" class="form-label">Ngày lập</label>
         <input type="text" class="form-control" id="total-price" value="@invoice.InvoiceDate" readonly>
     </div>
     <div class="mb-3">
-        <a asp-action="Index" asp-controller="Home">Trang chủ</a>
+        <a asp-action="Index" asp-controller="Home">
+            <i class="bi bi-house-fill"></i>Trang chủ
+        </a>
     </div>
     <div class="mb-3">
-    <a asp-action="Index" asp-controller="Invoice">Danh sách hóa đơn</a>
+    <a asp-action="Index" asp-controller="Invoice">
+            <i class="bi bi-arrow-left-square"></i>Danh sách hóa đơn
+        </a>
     </div>
 </div>

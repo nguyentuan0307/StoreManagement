@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Quản lý thiết bị";
     List<DeviceView> devices = Model;
+    int count = 1;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
@@ -10,7 +11,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>STT</th>
                 <th>Tên thiết bị</th>
                 <th>Mô tả</th>
                 <th>Nhà cung cấp</th>
@@ -27,7 +28,7 @@
             @foreach (var device in devices)
             {
                 <tr>
-                    <td>@device.DeviceID</td>
+                    <td>@count</td>
                     <td>@device.DeviceName</td>
                     <td>@device.Description</td>
                     <td>@device.Manufacturer</td>
@@ -40,6 +41,7 @@
                         </td>
                     }
                 </tr>
+                count++;
             }
         </tbody>
     </table>

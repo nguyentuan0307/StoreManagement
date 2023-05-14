@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Danh sách hóa đơn";
     List<InvoiceView> invoices = Model;
+    int count = 1;
 }
 @using ComputerRepair.DTO;
 @using ComputerRepair.Models;
@@ -10,7 +11,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>STT</th>
                 <th>Tên khách hàng</th>
                 <th>Tổng tiền</th>
                 <th>Ngày lập</th>
@@ -23,9 +24,9 @@
             @foreach (var invoice in invoices)
             {
                 <tr>
-                    <td>@invoice.InvoiceID</td>
+                    <td>@count</td>
                     <td>@invoice.CustomerName</td>
-                    <td>@invoice.TotalPrice</td>
+                    <td>@Math.Floor(invoice.TotalPrice)</td>
                     <td>@invoice.InvoiceDate</td>
                     <td>
                         <a class="btn btn-success" asp-action="InvoiceDetail" asp-controller="Invoice" asp-route-id="@invoice.InvoiceID">Chi tiết</a>
@@ -35,6 +36,7 @@
                         }
                     </td>
                 </tr>
+                count++;
             }
         </tbody>
     </table>

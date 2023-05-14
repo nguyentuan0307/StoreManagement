@@ -57,5 +57,22 @@ namespace ComputerRepair.Services
                 return false;
             }
         }
+        public int GetQuantityDevice(int id)
+        {
+            Device deviceTemp = _dataContext.Devices.Find(id);
+            return deviceTemp.Quantity;
+        }
+        public bool UpdateQuantityDevice(int id, int count)
+        {
+            Device deviceTemp = _dataContext.Devices.Find(id);
+            if (count > deviceTemp.Quantity)
+            {
+                return false;
+            }
+            deviceTemp.Quantity -= count;
+            _dataContext.SaveChanges();
+            return true;
+        }
+
     }
 }
